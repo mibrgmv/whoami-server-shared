@@ -8,20 +8,9 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/jackc/pgx/v5/stdlib"
 	"log"
-	"path/filepath"
-	"runtime"
 )
 
 func MigrateUp(migrationsPath, migrationsTableName string, pool *pgxpool.Pool) error {
-	_, filename, _, ok := runtime.Caller(1)
-	if !ok {
-		return errors.New("failed to get caller information")
-	}
-
-	mainDir := filepath.Dir(filename)
-	absolutePath := filepath.Join(mainDir, migrationsPath)
-	log.Println("Attempting to apply migrations from", absolutePath)
-
 	sqlDB := stdlib.OpenDBFromPool(pool)
 	//defer sqlDB.Close()
 	//derived from pool, which lifetime is managed by main app code
@@ -34,7 +23,7 @@ func MigrateUp(migrationsPath, migrationsTableName string, pool *pgxpool.Pool) e
 	}
 
 	m, err := migrate.NewWithDatabaseInstance(
-		"file://"+absolutePath,
+		"file://"+migrationsPath,
 		"pgx",
 		driver)
 	if err != nil {
