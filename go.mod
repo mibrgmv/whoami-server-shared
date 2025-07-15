@@ -1,4 +1,4 @@
-module whoami-server/shared
+module whoami-server-shared
 
 go 1.24.0
 
