@@ -1,4 +1,4 @@
-module whoami-server-shared
+module github.com/mibrgmv/whoami-server-shared
 
 go 1.24.0
 
