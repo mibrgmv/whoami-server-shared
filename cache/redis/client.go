@@ -2,8 +2,8 @@ package redis
 
 import (
 	"context"
+	config "github.com/mibrgmv/whoami-server-shared/config/cache/redis"
 	"github.com/redis/go-redis/v9"
-	config "whoami-server/internal/config/cache/redis"
 )
 
 func NewClient(ctx context.Context, config *config.Config) (*redis.Client, error) {
